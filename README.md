@@ -8,4 +8,12 @@ Oscar Eatwell, Jules Charlier et Rafael Salavarria Lorenzoni
 - Exemples (Collisions de particules, RSA, Rubik's Cube, jeu de taquin etc.)
 - Documentation (Théorie des groupes, tutoriels, références, etc.)
 
+## Réalisations
 
+| Fonctionnalité | Statut |
+|-----------------|--------|
+| Affichage des tables de Cayley | ✖️ Non complété |
+
+## Installation
+
+(rien ici pour l'instant)
