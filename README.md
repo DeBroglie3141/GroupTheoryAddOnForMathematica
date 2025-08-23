@@ -9,19 +9,19 @@ Oscar Eatwell, Jules Charlier et Rafael Salavarria Lorenzoni
 - Documentation (Théorie des groupes, tutoriels, références, etc.)
 
 
-
 ## Liste des fonctions 
 
 - `GroupIdentity[group_]` : renvoie l'élément neutre du groupe `group`
 - `GroupInverse[group_, g_]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
-- `Group` : renvoie l'ordre de l'élément `g` du groupe `group`
-- `GroupOrder[group_]` : 
+- `CayleyTable[group_]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`.
 
 ## Réalisations
 
 | Fonctionnalité | Statut |
 |-----------------|--------|
-| Affichage des tables de Cayley | ✖️ Non complété |
+| `GroupIdentity[group_]` | ✖️ Non complété |
+| `GroupInverse[group_, g_]` | ✖️ Non complété |
+| `CayleyTable[group_]` | ✖️ Non complété |
 
 ## Installation
 
