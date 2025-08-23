@@ -11,17 +11,17 @@ Oscar Eatwell, Jules Charlier et Rafael Salavarria Lorenzoni
 
 ## Liste des fonctions 
 
-- `GroupIdentity[group_]` : renvoie l'élément neutre du groupe `group`
-- `GroupInverse[group_, g_]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
-- `CayleyTable[group_]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`.
+- `GroupIdentity[group]` : renvoie l'élément neutre du groupe `group`
+- `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
+- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens)
 
 ## Réalisations
 
 | Fonctionnalité | Statut |
 |-----------------|--------|
-| `GroupIdentity[group_]` | ✖️ Non complété |
-| `GroupInverse[group_, g_]` | ✖️ Non complété |
-| `CayleyTable[group_]` | ✖️ Non complété |
+| `GroupIdentity[group]` | ✖️ Non complété |
+| `GroupInverse[group, g]` | ✖️ Non complété |
+| `CayleyMultiplicationTable[group]` | ✖️ Non complété |
 
 ## Installation
 
