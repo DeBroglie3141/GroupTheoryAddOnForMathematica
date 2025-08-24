@@ -13,7 +13,8 @@ Oscar Eatwell, Jules Charlier et Rafael Salavarria Lorenzoni
 
 - `GroupIdentity[group]` : renvoie l'élément neutre du groupe `group`
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
-- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes)
+- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes) + options d'affichage (meilleure lisiblité, plus jolis graphismes, etc)
+- Affichage groupes dihédraux.
 
 ## Réalisations
 
