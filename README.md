@@ -33,23 +33,14 @@ Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 - `IdentityElement[group]` : 
 
 ```wl
-IdentityElement[group_] := Module[{elems, n},
-  Which[
-   (*Groupes finis standard*) 
-   Head[group] === CyclicGroup || Head[group] === QuaternionGroup, 0,
-   Head[group] === DihedralGroup, IdentityMatrix[2],
+IdentityElement[group_] := Module[{elems, n}, Which[
+   (*Groupes finis standard*)Head[group] === CyclicGroup, 0,
+   Head[group] === DihedralGroup, Cycles[{}],
    Head[group] === SymmetricGroup || Head[group] === AlternatingGroup,
     Cycles[{}],
-   (*PermutationGroup*)Head[group] === PermutationGroup, 
-   IdentityPermutation[
-    Max[Length /@ 
-      GroupElements[
-       group]]],(*MatrixGroup ou groupes classiques de matrices*)
-   Head[group] === MatrixGroup || 
-    MemberQ[{SpecialUnitaryGroup, SpecialOrthogonalGroup}, Head[group]],
-    IdentityMatrix[Length[GroupElements[group][[1]]]],
+   (*PermutationGroup*)Head[group] === PermutationGroup, Cycles[{}],
    (*AbelianGroup*)Head[group] === AbelianGroup, 
-   ConstantArray[0, Length[group[[1]]]],
+   Table[0, {i, Length[group[[1]]]}],
    (*(Zn,+):groupe additif modulo n*)MatchQ[group, {"AddMod", n_}], 0,
    (*(Zn,\[Times]) monoïde ou groupe multiplicatif*)
    MatchQ[group, {"MultMod", n_}], 1,
@@ -58,9 +49,14 @@ IdentityElement[group_] := Module[{elems, n},
 
 (*Exemples d'utilisation:*)
 IdentityElement[CyclicGroup[5]]          (*0*)
-IdentityElement[SymmetricGroup[3]]       (*PermutationCycles[]*)
-IdentityElement[AbelianGroup[{2, 3}]]    (*{0,0}*)
+IdentityElement[DihedralGroup[5]]   (*Cycles[{}]*)
+IdentityElement[SymmetricGroup[3]]       (*Cycles[{}]*)
+IdentityElement[AlternatingGroup[3]]       (*Cycles[{}]*)
+IdentityElement[
+ PermutationGroup[{Cycles[{{2, 10}, {4, 11}, {5, 7}}], 
+   Cycles[{{1, 4, 3}, {2, 5, 6}}]}]]       (*Cycles[{}]*)
+IdentityElement[AbelianGroup[{2, 3, 4}]]     (*{0,0,0}*)
 IdentityElement[{"AddMod", 7}]           (*0*)
-IdentityElement[{"MultMod", 8}]          (*1*)
+IdentityElement[{"MultMod", 8}]         (*1*)
 ```
 - `GroupInverse[group, g]` : 
