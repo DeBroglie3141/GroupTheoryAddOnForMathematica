@@ -13,7 +13,7 @@ Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 
 - `IdentityElement[group]` : renvoie l'élément neutre du groupe `group`, ou du monoïde `group`
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
-- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {"AddMod", 4}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes)
+- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {"AddMod", 4}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes), ajout d'une case en haut à gauche avec le symbole de l'opération
 - Affichage groupes dihédraux.
 
 ## Réalisations
@@ -47,7 +47,7 @@ IdentityElement[group_] := Module[{elems, n}, Which[
    (*Cas général:prendre le premier élément de GroupElements*)True, 
    First[GroupElements[group]]]]
 
-(*Exemples d'utilisation:*)
+(*Exemples d'utilisation*)
 IdentityElement[CyclicGroup[5]]          (*0*)
 IdentityElement[DihedralGroup[5]]   (*Cycles[{}]*)
 IdentityElement[SymmetricGroup[3]]       (*Cycles[{}]*)
@@ -62,34 +62,44 @@ IdentityElement[{"MultMod", 8}]         (*1*)
 - `CayleyMultiplicationTable[group]` : 
 ```wl
 CayleyMultiplicationTable[group_] := 
- Module[{elements, Operation, n, 
-   i},(*Détection du type de groupe et définition de l'opération*) 
-  Which[
-   (*Groupe abélien*)Head[group] === AbelianGroup, n = group[[1]];
+ Module[{elements, Operation, n, i, table, 
+   opSymbol},(*Détection du type de groupe et définition de l'opératio\
+n*) Which[(*Groupe abélien*)Head[group] === AbelianGroup, n = group[[1]];
    elements = Tuples[Table[Range[0, n[[i]] - 1], {i, Length[n]}]];
-   Operation[x_, y_] := Mod[x + y, n],
-   (*Groupe cyclique:CyclicGroup[n]*)Head[group] === CyclicGroup, 
-   elements = Range[0, group[[1]] - 1];
-   Operation[x_, y_] := Mod[x + y, group[[1]]],
-   (*Groupes modulaires personnalisés {"AddMod",n} ou {"MultMod",n}*)
+   Operation[x_, y_] := Mod[x + y, n];
+   opSymbol = "+ (mod " <> ToString[n] <> ")",(*Groupe cyclique*)
+   Head[group] === CyclicGroup, elements = Range[0, group[[1]] - 1];
+   Operation[x_, y_] := Mod[x + y, group[[1]]];
+   opSymbol = 
+    "+ (mod " <> ToString[group[[1]]] <> 
+     ")",(*Groupes modulaires personnalisés*)
    MatchQ[group, {_String, _Integer}], 
    elements = Range[0, group[[2]] - 1];
    Operation[x_, y_] := 
     Which[group[[1]] == "AddMod", Mod[x + y, group[[2]]], 
-     group[[1]] == "MultMod", Mod[x*y, group[[2]]]],
-   (*Domaine Booléen*)MatchQ[group, {_String, _String}], 
+     group[[1]] == "MultMod", Mod[x*y, group[[2]]]];
+   opSymbol = 
+    Which[group[[1]] == "AddMod", 
+     "+ (mod " <> ToString[group[[2]]] <> ")", group[[1]] == "MultMod",
+      "\[Times] (mod " <> ToString[group[[2]]] <> 
+      ")"],(*Domaine Booléen*)MatchQ[group, {_String, _String}], 
    elements = {True, False};
    Operation[x_, y_] := 
     Which[group[[1]] == "And", And[x, y], group[[1]] == "Or", Or[x, y],
-      group[[1]] == "Xor", Xor[x, y]],
-   (*Groupes de permutations*)
+      group[[1]] == "Xor", Xor[x, y]];
+   opSymbol = group[[1]],(*Groupes de permutations*)
    MemberQ[{DihedralGroup, SymmetricGroup, AlternatingGroup, 
      PermutationGroup}, Head[group]], elements = GroupElements[group];
-   Operation[x_, y_] := x*y];
-  (*Construction de la table de Cayley*)
-  Grid[Table[
-    Operation[elements[[i]], elements[[j]]], {i, 
-     Length[elements]}, {j, Length[elements]}], Frame -> All]]
+   Operation[x_, y_] := x*y;
+   opSymbol = "\[SmallCircle]"];
+  (*Construction de la table avec en-têtes*)
+  table = Prepend[
+    MapIndexed[Prepend[#, elements[[First[#2]]]] &, 
+     Table[Operation[elements[[i]], elements[[j]]], {i, 
+       Length[elements]}, {j, Length[elements]}]], 
+    Prepend[elements, 
+     Style[opSymbol, Bold]]  (*Case supérieure gauche avec couleur*)];
+  Grid[table, Frame -> All, Spacings -> {2, 2}]]
 
 (*Exemples d'utilisation*)
 CayleyMultiplicationTable[AbelianGroup[{2, 4}]]
