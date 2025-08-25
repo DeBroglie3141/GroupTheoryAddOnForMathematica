@@ -32,7 +32,7 @@ Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 
 - `IdentityElement[group]` : 
 
-```mathematica
+```wl
 IdentityElement[group_] := Module[{elems, n},
   Which[
    (*Groupes finis standard*) 
