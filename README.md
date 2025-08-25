@@ -22,7 +22,7 @@ Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 |-----------------|--------|
 | `IdentityElement[group]` | ✅ Complété |
 | `GroupInverse[group, g]` | ✖️ Non complété |
-| `CayleyMultiplicationTable[group]` | ✖️ Non complété |
+| `CayleyMultiplicationTable[group]` | ✅ Complété |
 
 ## Installation
 
