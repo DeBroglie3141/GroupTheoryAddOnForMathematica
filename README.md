@@ -13,7 +13,7 @@ Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 
 - `IdentityElement[group]` : renvoie l'élément neutre du groupe `group`, ou du monoïde `group`
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
-- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes) + options d'affichage (meilleure lisibilité, plus jolis graphismes, etc)
+- `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {"AddMod", 4}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes)
 - Affichage groupes dihédraux.
 
 ## Réalisations
@@ -59,4 +59,43 @@ IdentityElement[AbelianGroup[{2, 3, 4}]]     (*{0,0,0}*)
 IdentityElement[{"AddMod", 7}]           (*0*)
 IdentityElement[{"MultMod", 8}]         (*1*)
 ```
-- `GroupInverse[group, g]` : 
+- `CayleyMultiplicationTable[group]` : 
+```wl
+CayleyMultiplicationTable[group_] := 
+ Module[{elements, Operation, n, 
+   i},(*Détection du type de groupe et définition de l'opération*) 
+  Which[
+   (*Groupe abélien*)Head[group] === AbelianGroup, n = group[[1]];
+   elements = Tuples[Table[Range[0, n[[i]] - 1], {i, Length[n]}]];
+   Operation[x_, y_] := Mod[x + y, n],
+   (*Groupe cyclique:CyclicGroup[n]*)Head[group] === CyclicGroup, 
+   elements = Range[0, group[[1]] - 1];
+   Operation[x_, y_] := Mod[x + y, group[[1]]],
+   (*Groupes modulaires personnalisés {"AddMod",n} ou {"MultMod",n}*)
+   MatchQ[group, {_String, _Integer}], 
+   elements = Range[0, group[[2]] - 1];
+   Operation[x_, y_] := 
+    Which[group[[1]] == "AddMod", Mod[x + y, group[[2]]], 
+     group[[1]] == "MultMod", Mod[x*y, group[[2]]]],
+   (*Domaine Booléen*)MatchQ[group, {_String, _String}], 
+   elements = {True, False};
+   Operation[x_, y_] := 
+    Which[group[[1]] == "And", And[x, y], group[[1]] == "Or", Or[x, y],
+      group[[1]] == "Xor", Xor[x, y]],
+   (*Groupes de permutations*)
+   MemberQ[{DihedralGroup, SymmetricGroup, AlternatingGroup, 
+     PermutationGroup}, Head[group]], elements = GroupElements[group];
+   Operation[x_, y_] := x*y];
+  (*Construction de la table de Cayley*)
+  Grid[Table[
+    Operation[elements[[i]], elements[[j]]], {i, 
+     Length[elements]}, {j, Length[elements]}], Frame -> All]]
+
+(*Exemples d'utilisation*)
+CayleyMultiplicationTable[AbelianGroup[{2, 4}]]
+CayleyMultiplicationTable[CyclicGroup[5]]
+CayleyMultiplicationTable[{"AddMod", 7}]
+CayleyMultiplicationTable[{"MultMod", 8}]
+CayleyMultiplicationTable[DihedralGroup[3]]
+CayleyMultiplicationTable[{"And", "BooleanDomain"}]
+```
