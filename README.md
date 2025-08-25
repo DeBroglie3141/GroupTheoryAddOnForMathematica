@@ -11,7 +11,7 @@ Oscar Eatwell, Jules Charlier et Rafael Salavarria Lorenzoni
 
 ## Liste des fonctions 
 
-- `GroupIdentity[group]` : renvoie l'élément neutre du groupe `group`
+- `IdentityElement[group]` : renvoie l'élément neutre du groupe `group`, ou du monoïde `group`
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
 - `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {4, Plus}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes) + options d'affichage (meilleure lisiblité, plus jolis graphismes, etc)
 - Affichage groupes dihédraux.
@@ -20,10 +20,47 @@ Oscar Eatwell, Jules Charlier et Rafael Salavarria Lorenzoni
 
 | Fonctionnalité | Statut |
 |-----------------|--------|
-| `GroupIdentity[group]` | ✖️ Non complété |
+| `IdentityElement[group]` | ✅ Complété |
 | `GroupInverse[group, g]` | ✖️ Non complété |
 | `CayleyMultiplicationTable[group]` | ✖️ Non complété |
 
 ## Installation
 
 (rien ici pour l'instant)
+
+## Code source
+
+- `IdentityElement[group]` : 
+
+```mathematica
+IdentityElement[group_] := Module[{elems, n},
+  Which[
+   (*Groupes finis standard*) 
+   Head[group] === CyclicGroup || Head[group] === QuaternionGroup, 0,
+   Head[group] === DihedralGroup, IdentityMatrix[2],
+   Head[group] === SymmetricGroup || Head[group] === AlternatingGroup,
+    Cycles[{}],
+   (*PermutationGroup*)Head[group] === PermutationGroup, 
+   IdentityPermutation[
+    Max[Length /@ 
+      GroupElements[
+       group]]],(*MatrixGroup ou groupes classiques de matrices*)
+   Head[group] === MatrixGroup || 
+    MemberQ[{SpecialUnitaryGroup, SpecialOrthogonalGroup}, Head[group]],
+    IdentityMatrix[Length[GroupElements[group][[1]]]],
+   (*AbelianGroup*)Head[group] === AbelianGroup, 
+   ConstantArray[0, Length[group[[1]]]],
+   (*(Zn,+):groupe additif modulo n*)MatchQ[group, {"AddMod", n_}], 0,
+   (*(Zn,\[Times]) monoïde ou groupe multiplicatif*)
+   MatchQ[group, {"MultMod", n_}], 1,
+   (*Cas général:prendre le premier élément de GroupElements*)True, 
+   First[GroupElements[group]]]]
+
+(*Exemples d'utilisation:*)
+IdentityElement[CyclicGroup[5]]          (*0*)
+IdentityElement[SymmetricGroup[3]]       (*PermutationCycles[]*)
+IdentityElement[AbelianGroup[{2, 3}]]    (*{0,0}*)
+IdentityElement[{"AddMod", 7}]           (*0*)
+IdentityElement[{"MultMod", 8}]          (*1*)
+```
+- `GroupInverse[group, g]` : 
