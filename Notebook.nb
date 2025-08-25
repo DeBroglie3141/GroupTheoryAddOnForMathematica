@@ -1,0 +1,223 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      7809,        213]
+NotebookOptionsPosition[      6698,        187]
+NotebookOutlinePosition[      7133,        204]
+CellTagsIndexPosition[      7090,        201]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Group theory in Mathematica", "Title",
+ CellChangeTimes->{{3.9651014891010036`*^9, 
+  3.9651015044263554`*^9}},ExpressionUUID->"d69f2dcf-b5a4-8243-9c69-\
+667ac87cac3e"],
+
+Cell["\<\
+Function that returns the identity element for a group/monoid:\
+\>", "Text",
+ CellChangeTimes->{{3.9651015267700195`*^9, 3.9651015706615543`*^9}, {
+  3.9651016903157063`*^9, 
+  3.9651016921449833`*^9}},ExpressionUUID->"ffea543d-65ed-b445-9a75-\
+17eabe244ca5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"IdentityElement", "[", "group_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"elems", ",", "n"}], "}"}], ",", 
+     RowBox[{"Which", "[", 
+      RowBox[{"(*", 
+       RowBox[{"Groupes", " ", "finis", " ", "standard"}], "*)"}], 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "group", "]"}], "===", "CyclicGroup"}], "||", 
+        RowBox[{
+         RowBox[{"Head", "[", "group", "]"}], "===", "QuaternionGroup"}]}], ",",
+        "0", ",", 
+       RowBox[{
+        RowBox[{"Head", "[", "group", "]"}], "===", "DihedralGroup"}], ",", 
+       RowBox[{"IdentityMatrix", "[", "2", "]"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "group", "]"}], "===", "SymmetricGroup"}], "||", 
+        RowBox[{
+         RowBox[{"Head", "[", "group", "]"}], "===", "AlternatingGroup"}]}], ",", 
+       RowBox[{"Cycles", "[", 
+        RowBox[{"{", "}"}], "]"}], ",", 
+       RowBox[{"(*", "PermutationGroup", "*)"}], 
+       RowBox[{
+        RowBox[{"Head", "[", "group", "]"}], "===", "PermutationGroup"}], ",", 
+       RowBox[{"IdentityPermutation", "[", 
+        RowBox[{"Max", "[", 
+         RowBox[{"Length", "/@", 
+          RowBox[{"GroupElements", "[", "group", "]"}]}], "]"}], "]"}], ",", 
+       RowBox[{"(*", 
+        RowBox[{
+        "MatrixGroup", " ", "ou", " ", "groupes", " ", "classiques", " ", 
+         "de", " ", "matrices"}], "*)"}], 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "group", "]"}], "===", "MatrixGroup"}], "||", 
+        RowBox[{"MemberQ", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"SpecialUnitaryGroup", ",", "SpecialOrthogonalGroup"}], 
+           "}"}], ",", 
+          RowBox[{"Head", "[", "group", "]"}]}], "]"}]}], ",", 
+       RowBox[{"IdentityMatrix", "[", 
+        RowBox[{"Length", "[", 
+         RowBox[{
+          RowBox[{"GroupElements", "[", "group", "]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], ",", 
+       RowBox[{"(*", "AbelianGroup", "*)"}], 
+       RowBox[{
+        RowBox[{"Head", "[", "group", "]"}], "===", "AbelianGroup"}], ",", 
+       RowBox[{"ConstantArray", "[", 
+        RowBox[{"0", ",", 
+         RowBox[{"Length", "[", 
+          RowBox[{"group", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "]"}], ",", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Zn", ",", "+"}], ")"}], ":", 
+         RowBox[{"groupe", " ", "additif", " ", "modulo", " ", "n"}]}], 
+        "*)"}], 
+       RowBox[{"MatchQ", "[", 
+        RowBox[{"group", ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<AddMod\>\"", ",", "n_"}], "}"}]}], "]"}], ",", "0", ",", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Zn", ",", "\[Times]"}], ")"}], " ", "mono\[IDoubleDot]de", 
+         " ", "ou", " ", "groupe", " ", "multiplicatif"}], "*)"}], 
+       RowBox[{"MatchQ", "[", 
+        RowBox[{"group", ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<MultMod\>\"", ",", "n_"}], "}"}]}], "]"}], ",", "1", ",", 
+       RowBox[{"(*", 
+        RowBox[{"Cas", " ", 
+         RowBox[{"g\[EAcute]n\[EAcute]ral", ":", 
+          RowBox[{
+          "prendre", " ", "le", " ", "premier", " ", 
+           "\[EAcute]l\[EAcute]ment", " ", "de", " ", "GroupElements"}]}]}], 
+        "*)"}], "True", ",", 
+       RowBox[{"First", "[", 
+        RowBox[{"GroupElements", "[", "group", "]"}], "]"}]}], "]"}]}], 
+    "]"}]}], "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{"Exemples", " ", 
+    RowBox[{"d", "'"}], 
+    RowBox[{"utilisation", ":"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"IdentityElement", "[", 
+   RowBox[{"CyclicGroup", "[", "5", "]"}], "]"}], "          ", 
+  RowBox[{"(*", "0", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"IdentityElement", "[", 
+   RowBox[{"SymmetricGroup", "[", "3", "]"}], "]"}], "       ", 
+  RowBox[{"(*", 
+   RowBox[{"PermutationCycles", "[", "]"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"IdentityElement", "[", 
+   RowBox[{"AbelianGroup", "[", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", "3"}], "}"}], "]"}], "]"}], "    ", 
+  RowBox[{"(*", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"IdentityElement", "[", 
+   RowBox[{"{", 
+    RowBox[{"\"\<AddMod\>\"", ",", "7"}], "}"}], "]"}], "           ", 
+  RowBox[{"(*", "0", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"IdentityElement", "[", 
+   RowBox[{"{", 
+    RowBox[{"\"\<MultMod\>\"", ",", "8"}], "}"}], "]"}], "          ", 
+  RowBox[{"(*", "1", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.96510152124794*^9, 3.96510152124794*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"640f6cb6-ee6b-2648-a90d-93077aa96f29"],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{3.9651016962030296`*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"cb51fe00-64ea-9541-a071-fac112bd0170"],
+
+Cell[BoxData[
+ RowBox[{"Cycles", "[", 
+  RowBox[{"{", "}"}], "]"}]], "Output",
+ CellChangeTimes->{3.9651016962050304`*^9},
+ CellLabel->"Out[22]=",ExpressionUUID->"c18032b2-faa5-b042-807c-9b589463e411"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{3.9651016962060337`*^9},
+ CellLabel->"Out[23]=",ExpressionUUID->"b2abbcf3-54f6-bd49-898d-6b3f92576e15"],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{3.9651016962060337`*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"6b2911a4-3912-0949-9a09-b3e370c3d064"],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.965101696207035*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"f529b8a2-88d2-e848-9c2a-66dc6f41ef64"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1152, 579.6},
+WindowMargins->{{
+  Automatic, -5.399999999999864}, {-5.399999999999977, Automatic}},
+FrontEndVersion->"14.3 for Microsoft Windows (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"43651191-5d93-624a-9cf9-f3c0fa425727"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 174, 3, 96, "Title",ExpressionUUID->"d69f2dcf-b5a4-8243-9c69-667ac87cac3e"],
+Cell[753, 27, 269, 6, 33, "Text",ExpressionUUID->"ffea543d-65ed-b445-9a75-17eabe244ca5"],
+Cell[CellGroupData[{
+Cell[1047, 37, 4760, 122, 332, "Input",ExpressionUUID->"640f6cb6-ee6b-2648-a90d-93077aa96f29"],
+Cell[5810, 161, 151, 2, 32, "Output",ExpressionUUID->"cb51fe00-64ea-9541-a071-fac112bd0170"],
+Cell[5964, 165, 201, 4, 32, "Output",ExpressionUUID->"c18032b2-faa5-b042-807c-9b589463e411"],
+Cell[6168, 171, 196, 4, 32, "Output",ExpressionUUID->"b2abbcf3-54f6-bd49-898d-6b3f92576e15"],
+Cell[6367, 177, 151, 2, 32, "Output",ExpressionUUID->"6b2911a4-3912-0949-9a09-b3e370c3d064"],
+Cell[6521, 181, 149, 2, 51, "Output",ExpressionUUID->"f529b8a2-88d2-e848-9c2a-66dc6f41ef64"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
