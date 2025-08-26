@@ -1,6 +1,6 @@
 # Extension de Théorie des Groupes pour Mathematica (Wolfram)
 
-Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
+Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 
 ## Composants : 
 
@@ -21,6 +21,8 @@ Oscar Eatwell, Jules Charlier,, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 | Fonctionnalité | Statut |
 |-----------------|--------|
 | `IdentityElement[group]` | ✅ Complété |
+|`IsIdentityByGroup[group, elem]`|✅ Complété|
+|`IsIdentity[list, elem, operation]`|✅ Complété|
 | `GroupInverse[group, g]` | ✖️ Non complété |
 | `CayleyMultiplicationTable[group]` | ✅ Complété |
 
@@ -90,7 +92,7 @@ n*) Which[(*Groupe abélien*)Head[group] === AbelianGroup, n = group[[1]];
    opSymbol = group[[1]],(*Groupes de permutations*)
    MemberQ[{DihedralGroup, SymmetricGroup, AlternatingGroup, 
      PermutationGroup}, Head[group]], elements = GroupElements[group];
-   Operation[x_, y_] := x*y;
+   Operation[x_, y_] := PermutationProduct[x, y];
    opSymbol = "\[SmallCircle]"];
   (*Construction de la table avec en-têtes*)
   table = Prepend[
@@ -108,4 +110,24 @@ CayleyMultiplicationTable[{"AddMod", 7}]
 CayleyMultiplicationTable[{"MultMod", 8}]
 CayleyMultiplicationTable[DihedralGroup[3]]
 CayleyMultiplicationTable[{"And", "BooleanDomain"}]
+```
+- `IsIdentityByGroup[group, elem]` :
+```wl
+IsIdentityByGroup[group_, elem_] := (elem === IdentityElement[group])
+
+(*Exemples d'utilisation*)
+IsIdentityByGroup[CyclicGroup[5], 0]          (*True*)
+IsIdentityByGroup[DihedralGroup[5], Cycles[{}]]  (*True*)
+IsIdentityByGroup[SymmetricGroup[3], Cycles[{}]]       (*True*)
+IsIdentityByGroup[AlternatingGroup[3], Cycles[{}]]       (*True*)
+```
+
+- `IsIdentity[list, elem, operation]` :
+```wl
+IsIdentity[list_List, elem_, operation_ : Plus] /; 
+  MemberQ[list, elem] := xAllTrue[list, ((operation[elem, #]) == # &)]
+
+(*Exemple d'utilisation*)
+IsIdentity[Range[0, 11], 0, Plus] (*True*)
+IsIdentity[{2,4,7,10,24}, 4, Plus] (*False*)
 ```
