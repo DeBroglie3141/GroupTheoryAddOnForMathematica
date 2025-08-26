@@ -1,6 +1,6 @@
 # Extension de Théorie des Groupes pour Mathematica (Wolfram)
 
-Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
+Jules Charlier, Oscar Eatwell, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 
 ## Composants : 
 
@@ -34,7 +34,6 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 | `GroupCenter[group]` | ✅ Complété |
 | `AbelianGroupQ[group]` | ✅ Complété |
 | `GroupInverse[group, g]` | ✖️ Non complété |
-
 
 ## Code source
 
