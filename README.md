@@ -17,7 +17,7 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
 - `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {"AddMod", 4}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes), ajout d'une case en haut à gauche avec le symbole de l'opération
 - `IsCenter[group, elem]` : renvoie `True` si `elem` est dans le centre du groupe `group`, `False` sinon
-
+- `GroupCenter[group]` : renvoie le centre du groupe `group`
 - Affichage groupes dihédraux.
 
 ## Réalisations
@@ -30,6 +30,7 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 | `GroupInverse[group, g]` | ✖️ Non complété |
 | `CayleyMultiplicationTable[group]` | ✅ Complété |
 | `IsCenter[group, elem]` | ✅ Complété |
+| `GroupCenter[group]` | ✅ Complété |
 
 ## Installation
 
@@ -65,6 +66,31 @@ IdentityElement[
 IdentityElement[AbelianGroup[{2, 3, 4}]]     (*{0,0,0}*)
 IdentityElement[{"AddMod", 7}]           (*0*)
 IdentityElement[{"MultMod", 8}]         (*1*)
+```
+- `IsIdentityByGroup[group, elem]` :
+```wl
+(*Il faut avoir défini la fonction IdentityElement[group]*)
+IsIdentityByGroup[group_, elem_] := (elem === IdentityElement[group])
+
+(*Exemples d'utilisation*)
+IsIdentityByGroup[CyclicGroup[5], 0]          (*True*)
+IsIdentityByGroup[DihedralGroup[5], Cycles[{}]]  (*True*)
+IsIdentityByGroup[SymmetricGroup[3], Cycles[{}]]       (*True*)
+IsIdentityByGroup[AlternatingGroup[3], Cycles[{}]]       (*True*)
+```
+
+- `IsIdentity[list, elem, operation]` :
+```wl
+IsIdentity[list_List, elem_, operation_ : Plus] /; 
+  MemberQ[list, elem] := xAllTrue[list, ((operation[elem, #]) == # &)]
+
+(*Exemple d'utilisation*)
+IsIdentity[Range[0, 11], 0, Plus] (*True*)
+IsIdentity[{2,4,7,10,24}, 4, Plus] (*False*)
+```
+- `GroupInverse[group, g]` : 
+```wl
+(*rien pour l'instant*)
 ```
 - `CayleyMultiplicationTable[group]` : 
 ```wl
@@ -116,23 +142,23 @@ CayleyMultiplicationTable[{"MultMod", 8}]
 CayleyMultiplicationTable[DihedralGroup[3]]
 CayleyMultiplicationTable[{"And", "BooleanDomain"}]
 ```
-- `IsIdentityByGroup[group, elem]` :
+- `IsCenter[group, elem]` :
 ```wl
-IsIdentityByGroup[group_, elem_] := (elem === IdentityElement[group])
+IsCenter[group_, elem_] /; GroupElementQ[group, elem] := 
+ AllTrue[GroupElements[
+   group], ((PermutationProduct[elem, #]) == 
+     PermutationProduct[#, elem] &)]
 
 (*Exemples d'utilisation*)
-IsIdentityByGroup[CyclicGroup[5], 0]          (*True*)
-IsIdentityByGroup[DihedralGroup[5], Cycles[{}]]  (*True*)
-IsIdentityByGroup[SymmetricGroup[3], Cycles[{}]]       (*True*)
-IsIdentityByGroup[AlternatingGroup[3], Cycles[{}]]       (*True*)
+IsCenter[DihedralGroup[4], Cycles[{}]] (*True*)
+IsCenter[DihedralGroup[4], Cycles[{{1, 3}, {2, 4}}]] (*True*)
 ```
 
-- `IsIdentity[list, elem, operation]` :
+- `GroupCenter[group]` :
 ```wl
-IsIdentity[list_List, elem_, operation_ : Plus] /; 
-  MemberQ[list, elem] := xAllTrue[list, ((operation[elem, #]) == # &)]
+GroupCenter[group_] :=
+ 	Select[GroupElements[group], IsCenter[group, #] &]
 
-(*Exemple d'utilisation*)
-IsIdentity[Range[0, 11], 0, Plus] (*True*)
-IsIdentity[{2,4,7,10,24}, 4, Plus] (*False*)
+(*Exemples d'utilisation*)
+GroupCenter[DihedralGroup[4]] (*{Cycles[{}], Cycles[{{1, 3}, {2, 4}}]}*)
 ```
