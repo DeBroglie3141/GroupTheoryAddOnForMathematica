@@ -35,9 +35,6 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 | `AbelianGroupQ[group]` | ✅ Complété |
 | `GroupInverse[group, g]` | ✖️ Non complété |
 
-## Installation
-
-(rien ici pour l'instant)
 
 ## Code source
 
