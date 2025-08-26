@@ -12,8 +12,12 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 ## Liste des fonctions 
 
 - `IdentityElement[group]` : renvoie l'élément neutre du groupe `group`, ou du monoïde `group`
+- `IsIdentityByGroup[group, elem]` : renvoie `True` si `elem` est l'élément neutre du groupe `group`, `False` sinon; exploite les nomenclatures
+- `IsIdentity[list, elem, operation]` : renvoie `True` si `elem` est l'élément neutre du magma unifère d'ensemble `list` et d'opération binaire `operation`, `False` sinon; teste tous les cas
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
 - `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {"AddMod", 4}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes), ajout d'une case en haut à gauche avec le symbole de l'opération
+- `IsCenter[group, elem]` : renvoie `True` si `elem` est dans le centre du groupe `group`, `False` sinon
+
 - Affichage groupes dihédraux.
 
 ## Réalisations
@@ -25,6 +29,7 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 |`IsIdentity[list, elem, operation]`|✅ Complété|
 | `GroupInverse[group, g]` | ✖️ Non complété |
 | `CayleyMultiplicationTable[group]` | ✅ Complété |
+| `IsCenter[group, elem]` | ✅ Complété |
 
 ## Installation
 
