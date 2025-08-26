@@ -50,7 +50,7 @@ IdentityElement[group_] := Module[{elems, n}, Which[
    Head[group] === SymmetricGroup || Head[group] === AlternatingGroup,
     Cycles[{}],
    (*PermutationGroup*)Head[group] === PermutationGroup, Cycles[{}],
-   (*AbelianGroup*)Head[group] === AbelianGroup, 
+   (*AbelianGroup*)Head[group] === AbelianGroup || (ValueQ[AbelianGroupQ[_]] && TrueQ[AbelianGroupQ[group]]), 
    Table[0, {i, Length[group[[1]]]}],
    (*(Zn,+):groupe additif modulo n*)MatchQ[group, {"AddMod", n_}], 0,
    (*(Zn,\[Times]) monoïde ou groupe multiplicatif*)
@@ -100,7 +100,7 @@ IsIdentity[{2,4,7,10,24}, 4, Plus] (*False*)
 CayleyMultiplicationTable[group_] := 
  Module[{elements, Operation, n, i, table, 
    opSymbol},(*Détection du type de groupe et définition de l'opératio\
-n*) Which[(*Groupe abélien*)Head[group] === AbelianGroup, n = group[[1]];
+n*) Which[(*Groupe abélien*)Head[group] === AbelianGroup || (ValueQ[AbelianGroupQ[_]] && TrueQ[AbelianGroupQ[group]]), n = group[[1]];
    elements = Tuples[Table[Range[0, n[[i]] - 1], {i, Length[n]}]];
    Operation[x_, y_] := Mod[x + y, n];
    opSymbol = "+ (mod " <> ToString[n] <> ")",(*Groupe cyclique*)
