@@ -18,6 +18,8 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 - `CayleyMultiplicationTable[group]` : renvoie la table de Cayley du groupe `group`, ex `Z4 = {"AddMod", 4}`. (venant compléter `GroupMultiplicationTable[group]` en permettant d'afficher des tables de groupes non abéliens et de monoïdes), ajout d'une case en haut à gauche avec le symbole de l'opération
 - `IsCenter[group, elem]` : renvoie `True` si `elem` est dans le centre du groupe `group`, `False` sinon
 - `GroupCenter[group]` : renvoie le centre du groupe `group`
+- `AbelianGroupQ[group]` : renvoie `True` si le groupe `group` est abélien, `False` sinon
+
 - Affichage groupes dihédraux.
 
 ## Réalisations
@@ -31,6 +33,7 @@ Oscar Eatwell, Jules Charlier, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 | `CayleyMultiplicationTable[group]` | ✅ Complété |
 | `IsCenter[group, elem]` | ✅ Complété |
 | `GroupCenter[group]` | ✅ Complété |
+| `AbelianGroupQ[group]` | ✅ Complété |
 
 ## Installation
 
@@ -161,4 +164,14 @@ GroupCenter[group_] :=
 
 (*Exemples d'utilisation*)
 GroupCenter[DihedralGroup[4]] (*{Cycles[{}], Cycles[{{1, 3}, {2, 4}}]}*)
+```
+
+- `AbelianGroupQ[group]` :
+```wl
+AbelianGroupQ[group_] :=
+ 	GroupElements[group] == GroupCenter[group]
+
+(*Exemples d'utilisation*)
+AbelianGroupQ[DihedralGroup[4]] (*False*)
+AbelianGroupQ[AbelianGroup[{2,3}]] (*True*)
 ```
