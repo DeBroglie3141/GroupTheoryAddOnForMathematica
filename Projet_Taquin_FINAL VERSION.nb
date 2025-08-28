@@ -1,0 +1,396 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     15448,        388]
+NotebookOptionsPosition[     14958,        371]
+NotebookOutlinePosition[     15359,        387]
+CellTagsIndexPosition[     15316,        384]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"tileFaces", "=", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{"ImagePartition", "[", 
+       RowBox[{
+        RowBox[{"Graphics", "[", 
+         RowBox[{"{", "}"}], "]"}], ",", 
+        RowBox[{
+         RowBox[{"ImageDimensions", "[", 
+          RowBox[{"Graphics", "[", 
+           RowBox[{"{", "}"}], "]"}], "]"}], "/", "size"}]}], "]"}], "]"}]}], 
+    ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{"Grid", "[", 
+     RowBox[{
+      RowBox[{"Map", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"tileButton", "[", 
+          RowBox[{
+          "#", ",", "puzzleGrid", ",", "tileFaces", ",", "showLabels", ",", 
+           "size", ",", "\[IndentingNewLine]", 
+           RowBox[{"Enabled", "->", 
+            RowBox[{"Not", "[", 
+             RowBox[{"OrderedQ", "[", 
+              RowBox[{"Flatten", "[", "puzzleGrid", "]"}], "]"}], "]"}]}], ",",
+            "\[IndentingNewLine]", 
+           RowBox[{"Appearance", "->", 
+            RowBox[{"If", "[", 
+             RowBox[{"noEdges", ",", "Automatic", ",", "\"\<Frameless\>\""}], 
+             "]"}]}]}], "]"}], "&"}], ",", "\[IndentingNewLine]", 
+        "puzzleGrid", ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}], ",", 
+      RowBox[{"Frame", "->", "All"}], ",", 
+      RowBox[{"Spacings", "->", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}]}]}], "]"}]}], ",", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"size", ",", "3"}], "}"}], ",", 
+     RowBox[{"Range", "[", 
+      RowBox[{"3", ",", "6"}], "]"}], ",", 
+     RowBox[{"ControlType", "->", "PopupMenu"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"noEdges", ",", "False", ",", "\"\<show edges\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}], ",", 
+     RowBox[{"ControlType", "->", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"showLabels", ",", "True", ",", "\"\<show labels\>\""}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}], ",", 
+     RowBox[{"ControlType", "->", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Randomize puzzle\>\"", ",", 
+     RowBox[{"puzzleGrid", "=", 
+      RowBox[{"Partition", "[", 
+       RowBox[{
+        RowBox[{"RandomSample", "[", 
+         RowBox[{
+          RowBox[{"Range", "[", 
+           RowBox[{"size", "^", "2"}], "]"}], ",", 
+          RowBox[{"size", "^", "2"}]}], "]"}], ",", "size"}], "]"}]}]}], 
+    "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"puzzleGrid", ",", 
+       RowBox[{"Partition", "[", 
+        RowBox[{
+         RowBox[{"RandomSample", "[", 
+          RowBox[{
+           RowBox[{"Range", "[", 
+            RowBox[{"3", "^", "2"}], "]"}], ",", 
+           RowBox[{"3", "^", "2"}]}], "]"}], ",", "3"}], "]"}]}], "}"}], ",", 
+     "None"}], "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Initialization", ":>", 
+    RowBox[{"(", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"tileButton", "[", 
+         RowBox[{"n_", ",", "tile_", ",", "_", ",", "opts___"}], "]"}], "/;", 
+        RowBox[{"n", "==", 
+         RowBox[{"Max", "[", "tile", "]"}]}]}], ":=", 
+       RowBox[{"Button", "[", 
+        RowBox[{"\"\< \>\"", ",", "Null", ",", 
+         RowBox[{"Background", "->", "LightGray"}], ",", 
+         RowBox[{"Enabled", "->", "False"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"tileButton", "[", 
+        RowBox[{
+        "n_", ",", "tile_", ",", "tfc_", ",", "labelsShown_", ",", "size_", ",",
+          "opts___"}], "]"}], ":=", 
+       RowBox[{"Button", "[", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{"labelsShown", ",", 
+           RowBox[{"Show", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Graphics", "[", 
+              RowBox[{"Inset", "[", 
+               RowBox[{
+                RowBox[{"tfc", "[", 
+                 RowBox[{"[", "n", "]"}], "]"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}], ",", "1"}], "]"}], "]"}], ",",
+              "\[IndentingNewLine]", 
+             RowBox[{"Graphics", "[", 
+              RowBox[{"{", 
+               RowBox[{"Text", "[", 
+                RowBox[{
+                 RowBox[{"Style", "[", 
+                  RowBox[{"n", ",", 
+                   RowBox[{
+                    RowBox[{"500", "/", "size"}], "/", "2"}]}], "]"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0.5", ",", "0.5"}], "}"}]}], "]"}], "}"}], "]"}], ",",
+              "\[IndentingNewLine]", 
+             RowBox[{"PlotRange", "->", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"0", ",", "1"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+             RowBox[{"ImageSize", "->", 
+              RowBox[{"400", "/", "size"}]}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"tfc", "[", 
+            RowBox[{"[", "n", "]"}], "]"}]}], "]"}], ",", 
+         RowBox[{"tileMove", "[", 
+          RowBox[{"n", ",", "tile"}], "]"}], ",", 
+         RowBox[{"FrameMargins", "->", "0"}], ",", "opts"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SetAttributes", "[", 
+       RowBox[{"tileButton", ",", "HoldRest"}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"borderingSquare", "[", 
+        RowBox[{"n_", ",", "tile_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"posN", ",", "posMax", ",", "diff"}], "}"}], ",", 
+         RowBox[{
+          RowBox[{"posN", "=", 
+           RowBox[{"Flatten", "[", 
+            RowBox[{"Position", "[", 
+             RowBox[{"tile", ",", "n"}], "]"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"posMax", "=", 
+           RowBox[{"Flatten", "[", 
+            RowBox[{"Position", "[", 
+             RowBox[{"tile", ",", 
+              RowBox[{"Max", "[", "tile", "]"}]}], "]"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"diff", "=", 
+           RowBox[{"Abs", "[", 
+            RowBox[{"posN", "-", "posMax"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Total", "[", "diff", "]"}], "==", "1"}], ")"}], "&&", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Count", "[", 
+              RowBox[{"diff", ",", "1"}], "]"}], "==", "1"}], ")"}]}]}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"tileMove", "[", 
+        RowBox[{"n_", ",", "tile_"}], "]"}], ":=", 
+       RowBox[{"(", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"borderingSquare", "[", 
+           RowBox[{"n", ",", "tile"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"Unevaluated", "[", "tile", "]"}], "=", 
+           RowBox[{"tile", "/.", " ", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"n", "->", 
+               RowBox[{"Max", "[", "tile", "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"Max", "[", "tile", "]"}], "->", "n"}]}], "}"}]}]}]}], 
+         "]"}], ")"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SetAttributes", "[", 
+       RowBox[{"tileMove", ",", "HoldRest"}], "]"}], ";"}], ")"}]}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{3.9653762821406403`*^9},
+ CellLabel->"In[31]:=",ExpressionUUID->"eb69c315-410d-7841-85a1-1e328649d0a2"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`noEdges$$ = 
+    False, $CellContext`puzzleGrid$$ = {{8, 3, 1}, {7, 6, 4}, {5, 2, 
+    9}}, $CellContext`showLabels$$ = True, $CellContext`size$$ = 3, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`size$$], 3}, {3, 4, 5, 6}, ControlType -> 
+      PopupMenu}, {{
+       Hold[$CellContext`noEdges$$], False, "show edges"}, {True, False}, 
+      ControlType -> None}, {{
+       Hold[$CellContext`showLabels$$], True, "show labels"}, {True, False}, 
+      ControlType -> None}, {
+      Hold[
+       Button["Randomize puzzle", $CellContext`puzzleGrid$$ = Partition[
+          RandomSample[
+           
+           Range[$CellContext`size$$^2], $CellContext`size$$^2], \
+$CellContext`size$$]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
+      None}, {{
+       Hold[$CellContext`puzzleGrid$$], {{8, 3, 1}, {7, 6, 4}, {5, 2, 9}}}, 0,
+       ControlType -> None}}, Typeset`size$$ = {
+    550., {271.4175416090293, 278.5824583909707}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = False, 
+    Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`noEdges$$ = 
+        False, $CellContext`puzzleGrid$$ = {{8, 3, 1}, {7, 6, 4}, {5, 2, 
+         9}}, $CellContext`showLabels$$ = True, $CellContext`size$$ = 3}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$, Typeset`keyframeActionsQ$$, 
+        Typeset`keyframeList$$}, "Body" :> ($CellContext`tileFaces = Flatten[
+          ImagePartition[
+           Graphics[{}], ImageDimensions[
+             Graphics[{}]]/$CellContext`size$$]]; Grid[
+         Map[$CellContext`tileButton[#, $CellContext`puzzleGrid$$, \
+$CellContext`tileFaces, $CellContext`showLabels$$, $CellContext`size$$, 
+           Enabled -> Not[
+             OrderedQ[
+              Flatten[$CellContext`puzzleGrid$$]]], Appearance -> 
+           If[$CellContext`noEdges$$, Automatic, 
+             "Frameless"]]& , $CellContext`puzzleGrid$$, {2}], Frame -> All, 
+         Spacings -> {1, 1}]), 
+      "Specifications" :> {{{$CellContext`size$$, 3}, {3, 4, 5, 6}, 
+         ControlType -> 
+         PopupMenu}, {{$CellContext`noEdges$$, False, "show edges"}, {
+         True, False}, ControlType -> 
+         None}, {{$CellContext`showLabels$$, True, "show labels"}, {
+         True, False}, ControlType -> None}, 
+        Button["Randomize puzzle", $CellContext`puzzleGrid$$ = Partition[
+           RandomSample[
+            
+            Range[$CellContext`size$$^2], $CellContext`size$$^2], \
+$CellContext`size$$]], {{$CellContext`puzzleGrid$$, {{8, 3, 1}, {7, 6, 4}, {5,
+           2, 9}}}, 0, ControlType -> None}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{607.375, {339.88989268324804`, 347.05480946518946`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>((Condition[
+         $CellContext`tileButton[
+          Pattern[$CellContext`n, 
+           Blank[]], 
+          Pattern[$CellContext`tile, 
+           Blank[]], 
+          Blank[], 
+          Pattern[$CellContext`opts, 
+           BlankNullSequence[]]], $CellContext`n == Max[$CellContext`tile]] := 
+       Button[" ", Null, Background -> LightGray, Enabled -> 
+         False]; $CellContext`tileButton[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`tile, 
+          Blank[]], 
+         Pattern[$CellContext`tfc, 
+          Blank[]], 
+         Pattern[$CellContext`labelsShown, 
+          Blank[]], 
+         Pattern[$CellContext`size, 
+          Blank[]], 
+         Pattern[$CellContext`opts, 
+          BlankNullSequence[]]] := Button[
+         If[$CellContext`labelsShown, 
+          Show[
+           Graphics[
+            Inset[
+             Part[$CellContext`tfc, $CellContext`n], {0, 0}, {0, 0}, 1]], 
+           Graphics[{
+             Text[
+              Style[$CellContext`n, (500/$CellContext`size)/2], {0.5, 0.5}]}],
+            PlotRange -> {{0, 1}, {0, 1}}, ImageSize -> 
+           400/$CellContext`size], 
+          Part[$CellContext`tfc, $CellContext`n]], 
+         $CellContext`tileMove[$CellContext`n, $CellContext`tile], 
+         FrameMargins -> 0, $CellContext`opts]; 
+      SetAttributes[$CellContext`tileButton, 
+        HoldRest]; $CellContext`borderingSquare[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`tile, 
+          Blank[]]] := 
+       Module[{$CellContext`posN, $CellContext`posMax, $CellContext`diff}, \
+$CellContext`posN = Flatten[
+            Position[$CellContext`tile, $CellContext`n]]; $CellContext`posMax = 
+          Flatten[
+            Position[$CellContext`tile, 
+             Max[$CellContext`tile]]]; $CellContext`diff = 
+          Abs[$CellContext`posN - $CellContext`posMax]; 
+         And[Total[$CellContext`diff] == 1, Count[$CellContext`diff, 1] == 
+           1]]; $CellContext`tileMove[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`tile, 
+          Blank[]]] := If[
+         $CellContext`borderingSquare[$CellContext`n, $CellContext`tile], 
+         Unevaluated[$CellContext`tile] = 
+         ReplaceAll[$CellContext`tile, {$CellContext`n -> 
+            Max[$CellContext`tile], 
+            Max[$CellContext`tile] -> $CellContext`n}]]; 
+      SetAttributes[$CellContext`tileMove, HoldRest]; Null); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.965376326379919*^9},
+ CellLabel->"Out[31]=",ExpressionUUID->"3b788bb6-2149-4649-b728-9db62bb90d34"]
+}, Open  ]]
+},
+WindowSize->{1428, 741.75},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (March 14, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"31866548-f6cc-d640-b57d-9ff8e83c82a3"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 8026, 207, 725, "Input",ExpressionUUID->"eb69c315-410d-7841-85a1-1e328649d0a2"],
+Cell[8605, 231, 6337, 137, 708, "Output",ExpressionUUID->"3b788bb6-2149-4649-b728-9db62bb90d34"]
+}, Open  ]]
+}
+]
+*)
+
