@@ -13,3 +13,14 @@
 - Intro :
     - Brève description théorie des groupes, en quoi c'est intéressant
 - Plan
+
+
+## Enchainement : 
+
+- Rafael : Slide de Titre
+- Jules : Basics (tables de Cayley)
+- Jawad : Générateurs, Groupes de symmétries
+- Rafael : Taquin (intéractif)
+- Jules : Théorie des Groupes et Modèle Standard
+- Oscar : Collision de particules
+- Rafael : Conclusion (phrase de récap)
