@@ -21,7 +21,6 @@ Jules Charlier, Oscar Eatwell, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 - `AbelianGroupQ[group]` : renvoie `True` si le groupe `group` est abélien, `False` sinon
 
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
-- Affichage groupes dihédraux.
 
 ## Réalisations  
 
