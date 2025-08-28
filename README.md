@@ -4,9 +4,10 @@ Jules Charlier, Oscar Eatwell, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 
 ## Composants : 
 
-- Fonctions (Affichage des tables de Cayley pour des groupes non abéliens et des monoïdes, des attributs du groupe ou du monoïde (inverse de chaque élément, élément neutre, opération élémentaire, ordre), cosets, isomorphismes, représentation classique, ordre des éléments, visualisation du groupe, groupes quotient, etc.), champs
-- Exemples (Collisions de particules, RSA, Rubik's Cube, jeu de taquin, Modèle standard, Insolvabilité des polynômes degré 5, etc.)
-- Documentation (Théorie des groupes, tutoriels, références, etc.)
+- Fonctions : Affichage des tables de Cayley pour des groupes non abéliens et des monoïdes, des attributs du groupe ou du monoïde (inverse de chaque élément, élément neutre, opération élémentaire, ordre), teste si un groupe est abélien, calcule le centre d'un groupe, etc.
+- Exemples (Collisions de particules, Taquin (15 puzzle), Modèle standard (U1, SU2), etc.)
+
+- Documentation (Théorie des groupes, tutoriels, références, exemples, etc.)
 
 
 ## Liste des fonctions 
@@ -22,7 +23,7 @@ Jules Charlier, Oscar Eatwell, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 - `GroupInverse[group, g]` : renvoie l'inverse de `g`, `g` étant un élément du groupe `group`
 - Affichage groupes dihédraux.
 
-## Réalisations
+## Réalisations  
 
 | Fonctionnalité | Statut |
 |-----------------|--------|
