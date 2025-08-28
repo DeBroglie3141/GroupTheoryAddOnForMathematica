@@ -8,3 +8,8 @@
 
 ## Programme Slide par slide
 
+- Slide de titre :
+    - Titre, noms
+- Intro :
+    - Brève description théorie des groupes, en quoi c'est intéressant
+- Plan
