@@ -5,7 +5,7 @@ Jules Charlier, Oscar Eatwell, Jawad Ben Brahim et Rafael Salavarria Lorenzoni
 ## Composants : 
 
 - Fonctions : Affichage des tables de Cayley pour des groupes non abéliens et des monoïdes, des attributs du groupe ou du monoïde (inverse de chaque élément, élément neutre, opération élémentaire, ordre), teste si un groupe est abélien, calcule le centre d'un groupe, etc.
-- Exemples (Collisions de particules, Taquin (15 puzzle), Modèle standard (U1, SU2), etc.)
+- Exemples (Collisions de particules avec le Modèle standard (U1, SU2), Taquin (15 puzzle), etc.)
 
 - Documentation (Théorie des groupes, tutoriels, références, exemples, etc.)
 
