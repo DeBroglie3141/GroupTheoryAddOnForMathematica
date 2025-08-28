@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     15448,        388]
-NotebookOptionsPosition[     14958,        371]
-NotebookOutlinePosition[     15359,        387]
-CellTagsIndexPosition[     15316,        384]
+NotebookDataLength[     15389,        390]
+NotebookOptionsPosition[     14867,        372]
+NotebookOutlinePosition[     15300,        389]
+CellTagsIndexPosition[     15257,        386]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,7 +34,20 @@ Cell[BoxData[
          RowBox[{"ImageDimensions", "[", 
           RowBox[{"Graphics", "[", 
            RowBox[{"{", "}"}], "]"}], "]"}], "/", "size"}]}], "]"}], "]"}]}], 
-    ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", "puzzleGrid", "]"}], "=!=", "size"}], ",", 
+      RowBox[{"puzzleGrid", "=", 
+       RowBox[{"Partition", "[", 
+        RowBox[{
+         RowBox[{"RandomSample", "[", 
+          RowBox[{
+           RowBox[{"Range", "[", 
+            RowBox[{"size", "^", "2"}], "]"}], ",", 
+           RowBox[{"size", "^", "2"}]}], "]"}], ",", "size"}], "]"}]}]}], 
+     "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
     RowBox[{"Grid", "[", 
      RowBox[{
       RowBox[{"Map", "[", "\[IndentingNewLine]", 
@@ -95,19 +108,7 @@ Cell[BoxData[
           RowBox[{"Range", "[", 
            RowBox[{"size", "^", "2"}], "]"}], ",", 
           RowBox[{"size", "^", "2"}]}], "]"}], ",", "size"}], "]"}]}]}], 
-    "]"}], ",", "\[IndentingNewLine]", 
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"puzzleGrid", ",", 
-       RowBox[{"Partition", "[", 
-        RowBox[{
-         RowBox[{"RandomSample", "[", 
-          RowBox[{
-           RowBox[{"Range", "[", 
-            RowBox[{"3", "^", "2"}], "]"}], ",", 
-           RowBox[{"3", "^", "2"}]}], "]"}], ",", "3"}], "]"}]}], "}"}], ",", 
-     "None"}], "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    "]"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{"Initialization", ":>", 
     RowBox[{"(", "\[IndentingNewLine]", 
      RowBox[{
@@ -226,15 +227,13 @@ Cell[BoxData[
       RowBox[{"SetAttributes", "[", 
        RowBox[{"tileMove", ",", "HoldRest"}], "]"}], ";"}], ")"}]}]}], 
   "]"}]], "Input",
- CellChangeTimes->{3.9653762821406403`*^9},
- CellLabel->"In[31]:=",ExpressionUUID->"eb69c315-410d-7841-85a1-1e328649d0a2"],
+ CellLabel->"In[53]:=",ExpressionUUID->"b7b9451d-e965-6b4d-950b-016c1a0cc34a"],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
    DynamicModuleBox[{$CellContext`noEdges$$ = 
-    False, $CellContext`puzzleGrid$$ = {{8, 3, 1}, {7, 6, 4}, {5, 2, 
-    9}}, $CellContext`showLabels$$ = True, $CellContext`size$$ = 3, 
+    False, $CellContext`showLabels$$ = True, $CellContext`size$$ = 3, 
     Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
@@ -245,22 +244,19 @@ Cell[BoxData[
        Hold[$CellContext`showLabels$$], True, "show labels"}, {True, False}, 
       ControlType -> None}, {
       Hold[
-       Button["Randomize puzzle", $CellContext`puzzleGrid$$ = Partition[
+       Button["Randomize puzzle", $CellContext`puzzleGrid = Partition[
           RandomSample[
            
            Range[$CellContext`size$$^2], $CellContext`size$$^2], \
 $CellContext`size$$]]], Manipulate`Dump`ThisIsNotAControl, ControlType -> 
-      None}, {{
-       Hold[$CellContext`puzzleGrid$$], {{8, 3, 1}, {7, 6, 4}, {5, 2, 9}}}, 0,
-       ControlType -> None}}, Typeset`size$$ = {
-    550., {271.4175416090293, 278.5824583909707}}, Typeset`update$$ = 0, 
+      None}}, Typeset`size$$ = {
+    330., {162.85052490234375`, 167.14947509765625`}}, Typeset`update$$ = 0, 
     Typeset`initDone$$, Typeset`skipInitDone$$ = False, 
     Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, 
       "Variables" :> {$CellContext`noEdges$$ = 
-        False, $CellContext`puzzleGrid$$ = {{8, 3, 1}, {7, 6, 4}, {5, 2, 
-         9}}, $CellContext`showLabels$$ = True, $CellContext`size$$ = 3}, 
+        False, $CellContext`showLabels$$ = True, $CellContext`size$$ = 3}, 
       "ControllerVariables" :> {}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
@@ -270,14 +266,20 @@ $CellContext`size$$]]], Manipulate`Dump`ThisIsNotAControl, ControlType ->
         Typeset`keyframeList$$}, "Body" :> ($CellContext`tileFaces = Flatten[
           ImagePartition[
            Graphics[{}], ImageDimensions[
-             Graphics[{}]]/$CellContext`size$$]]; Grid[
-         Map[$CellContext`tileButton[#, $CellContext`puzzleGrid$$, \
+             Graphics[{}]]/$CellContext`size$$]]; 
+       If[Length[$CellContext`puzzleGrid] =!= $CellContext`size$$, \
+$CellContext`puzzleGrid = Partition[
+           RandomSample[
+            
+            Range[$CellContext`size$$^2], $CellContext`size$$^2], \
+$CellContext`size$$]]; Grid[
+         Map[$CellContext`tileButton[#, $CellContext`puzzleGrid, \
 $CellContext`tileFaces, $CellContext`showLabels$$, $CellContext`size$$, 
            Enabled -> Not[
              OrderedQ[
-              Flatten[$CellContext`puzzleGrid$$]]], Appearance -> 
+              Flatten[$CellContext`puzzleGrid]]], Appearance -> 
            If[$CellContext`noEdges$$, Automatic, 
-             "Frameless"]]& , $CellContext`puzzleGrid$$, {2}], Frame -> All, 
+             "Frameless"]]& , $CellContext`puzzleGrid, {2}], Frame -> All, 
          Spacings -> {1, 1}]), 
       "Specifications" :> {{{$CellContext`size$$, 3}, {3, 4, 5, 6}, 
          ControlType -> 
@@ -285,14 +287,13 @@ $CellContext`tileFaces, $CellContext`showLabels$$, $CellContext`size$$,
          True, False}, ControlType -> 
          None}, {{$CellContext`showLabels$$, True, "show labels"}, {
          True, False}, ControlType -> None}, 
-        Button["Randomize puzzle", $CellContext`puzzleGrid$$ = Partition[
+        Button["Randomize puzzle", $CellContext`puzzleGrid = Partition[
            RandomSample[
             
             Range[$CellContext`size$$^2], $CellContext`size$$^2], \
-$CellContext`size$$]], {{$CellContext`puzzleGrid$$, {{8, 3, 1}, {7, 6, 4}, {5,
-           2, 9}}}, 0, ControlType -> None}}, "Options" :> {}, 
-      "DefaultOptions" :> {}],
-     ImageSizeCache->{607.375, {339.88989268324804`, 347.05480946518946`}},
+$CellContext`size$$]]}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{
+      366.82500000000005`, {207.733935546875, 212.0328857421875}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -365,12 +366,13 @@ $CellContext`posN = Flatten[
    Deployed->True,
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{3.965376326379919*^9},
- CellLabel->"Out[31]=",ExpressionUUID->"3b788bb6-2149-4649-b728-9db62bb90d34"]
+ CellChangeTimes->{3.9653770865989895`*^9},
+ CellLabel->"Out[53]=",ExpressionUUID->"91982b8c-95af-b248-9b59-fe78a515b2a0"]
 }, Open  ]]
 },
-WindowSize->{1428, 741.75},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{718.5, 735},
+WindowMargins->{{-5.25, Automatic}, {Automatic, 0}},
+Magnification:>0.6 Inherited,
 FrontEndVersion->"14.2 for Microsoft Windows (64-bit) (March 14, 2025)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"31866548-f6cc-d640-b57d-9ff8e83c82a3"
@@ -387,8 +389,8 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[576, 22, 8026, 207, 725, "Input",ExpressionUUID->"eb69c315-410d-7841-85a1-1e328649d0a2"],
-Cell[8605, 231, 6337, 137, 708, "Output",ExpressionUUID->"3b788bb6-2149-4649-b728-9db62bb90d34"]
+Cell[576, 22, 8049, 207, 435, "Input",ExpressionUUID->"b7b9451d-e965-6b4d-950b-016c1a0cc34a"],
+Cell[8628, 231, 6223, 138, 432, "Output",ExpressionUUID->"91982b8c-95af-b248-9b59-fe78a515b2a0"]
 }, Open  ]]
 }
 ]
